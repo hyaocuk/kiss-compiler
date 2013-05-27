@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include"read_files.h"
+#include"../header/read_files.h"
 
 typedef struct binary_tuple {
 	char *value;
