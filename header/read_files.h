@@ -41,7 +41,7 @@ void read_config_file(char *path_to_config) {
 	FILE *config_file_pointer;
 
 	if(!(config_file_pointer=fopen(path_to_config, "r"))) {
-		printf("Error openning configure file!\n");
+		fprintf(stderr, "Error openning configure file!\n");
 		exit(1);
 	}
 
@@ -50,7 +50,7 @@ void read_config_file(char *path_to_config) {
 	}
 
 	if(fclose(config_file_pointer)) {
-		printf("Error closing configure file!\n");
+		fprintf(stderr, "Error closing configure file!\n");
 		exit(1);
 	}
 }
