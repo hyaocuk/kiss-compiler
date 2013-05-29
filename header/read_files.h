@@ -21,5 +21,11 @@ struct reserved_table {
 
 struct reserved_table reserved_table_array[20];
 
+char c;
 
+void read_a_line(FILE *fp) {
+	while((c=fgetc(fp))!=EOF) {
+		printf("%c", c);
+	}
+}
 
