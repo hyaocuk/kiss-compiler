@@ -31,9 +31,10 @@ int main(int argc, char *argv[]) {
 		}
 	
 
-		while((c=fgetc(read_sourcecode_file_pointer))!=EOF) {
+		read_config_file("conf/kiss-compiler.conf");
+		/*while((c=fgetc(read_sourcecode_file_pointer))!=EOF) {
 			printf("%c", c);
-		}
+		}*/
 
 		if(fclose(read_sourcecode_file_pointer)) {
 			printf("Error closing file\n");
