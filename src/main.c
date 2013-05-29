@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 	char c; 
 
 	if(argc==1) {
-		printf("Error: missing argument\n");
+		fprintf(stderr, "Error: missing argument\n");
 		exit(1);
 	}
 
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 		 * outside.
 		 *************************/
 		if(!(read_sourcecode_file_pointer=fopen(argv[1], "r"))) {
-			printf("Error openning file\n");
+			fprintf(stderr, "Error openning file\n");
 			exit(1);
 		}
 	
@@ -37,13 +37,14 @@ int main(int argc, char *argv[]) {
 		}*/
 
 		if(fclose(read_sourcecode_file_pointer)) {
-			printf("Error closing file\n");
+			fprintf(stderr, "Error closing file\n");
 			exit(1);
 		}
 	}
 
 	else {
-		printf("Error: too many arguments!\n");
+		fprintf(stderr, "Error: too many arguments!\n");
+		exit(1);
 	}
 
 	return 0;
