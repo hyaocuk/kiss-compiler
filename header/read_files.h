@@ -6,4 +6,20 @@
  * from files outside.
  * **************************************/
 
+struct identifier_table {
+	char *value;
+	unsigned int id;
+}identifier_table_instance;
+
+struct identifier_table identifier_table_array[50];
+
+struct reserved_table {
+	char *reserved_name;
+	char *value;
+	unsigned int id;
+}reserved_table_instance;
+
+struct reserved_table reserved_table_array[20];
+
+
 
