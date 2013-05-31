@@ -24,6 +24,14 @@ struct reserved_table reserved_table_array[20];
 
 char c;
 char line_buffer[100];
+char word[100];
+char *word_pointer = word;
+/* count letters in a word */
+int letter_count;
+/* count the reserved word */
+int reserved_count;
+/* sign bit of whether it's a reserved word area */
+int reserved_sign;
 
 int i;
 
@@ -37,6 +45,13 @@ void allocation() {
 	}
 }
 
+void clear_word() {
+	for(i=0; i<100; i++) {
+		word[i] = '\0';
+	}
+	letter_count = 0;
+}
+
 void read_config_file(char *path_to_config) {
 	FILE *config_file_pointer;
 
@@ -47,6 +62,72 @@ void read_config_file(char *path_to_config) {
 
 	while((c=fgetc(config_file_pointer))!=EOF) {
 		printf("%c", c);
+		while(c!=' ' && c!='\n') {
+			clear_word();
+			word[letter_count] = c;
+			letter_count += 1;
+			c = fgetc(config_file_pointer);
+		}
+		word[letter_count] = '\0';
+		if(strcmp("#reserved#", word)==0) {
+			reserved_sign = 1;
+		}
+		else {
+			reserved_sign = 0;
+		}
+
+		while(c==' ' || c=='\n') {
+			c = fgetc(config_file_pointer);
+		}
+		ungetc(c, config_file_pointer);
+
+		if(reserved_sign==1) {
+			while(c!=' ' && c!='\n') {
+				clear_word();
+				word[letter_count] = c;
+				letter_count += 1;
+				c = fgetc(config_file_pointer);
+			}
+			word[letter_count] = '\0';
+			if(strcmp("#non-reserved#", word)==0)
+
+			while(c!=' ') {
+				clear_word();
+				word[letter_count] = c;
+				letter_count += 1;
+				c = fgetc(config_file_pointer);
+			}
+			word[letter_count] = '\0';
+			strcpy(reserved_table_array[].reserved_name, word);
+
+			while(c==' ' || c=='\n') {
+				c = fgetc(config_file_pointer);
+			}
+			ungetc(c, config_file_pointer);
+
+			while(c!=' ') {
+				clear_word();
+				word[letter_count] = c;
+				letter_count += 1;
+				c = fgetc(config_file_pointer);
+			}
+			word[letter_count] = '\0';
+			strcpy(reserved_table_array[].id, word);
+
+			while(c==' ' || c=='\n') {
+				c = fgetc(config_file_pointer);
+			}
+			ungetc(c, config_file_pointer);
+
+			while(c!=' ' && c!= '\n') {
+				clear_word();
+				word[letter_count] = c;
+				letter_count += 1;
+				c = fgetc(config_file_pointer);
+			}
+			word[letter_count] = '\0';
+			strcpy(resreved_table_array[].value, word);
+		}
 	}
 
 	if(fclose(config_file_pointer)) {
