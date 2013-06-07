@@ -14,6 +14,6 @@ kiss compiler
    So we only provide to run on a localhost of static HTML, just open the kiss-compiler.html with your Chrome or Firefox or any other browsers that support JavaScript.
    Input your sourcecode into the inputbox or just drag your sourcecode file to the related area, and click "Run" button to see the final result.
 
-But also, you can run in your terminal
+But also, you can run in your terminal:
 
-$ ./main
+	./main
