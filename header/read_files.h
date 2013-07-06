@@ -33,30 +33,6 @@ int reserved_count = 0;
 
 
 /***************************************************************/
-/*void allocation() {
-	int i;
-	for(i=0; i<50; i++) {
-		identifier_table_array[i].id = (char *)malloc(5);
-		identifier_table_array[i].value = (char *)malloc(100);
-	}
-	for(i=0; i<20; i++) {
-		reserved_table_array[i].id = (char *)malloc(5);
-		reserved_table_array[i].reserved_name = (char *)malloc(20);
-		reserved_table_array[i].value = (char *)malloc(20);
-	}
-}
-
-void free_space() {
-	int i;
-	for(i=0; i<50; i++) {
-		free(identifier_table_array[i].value);
-	}
-	for(i=0; i<20; i++) {
-		free(reserved_table_array[i].reserved_name);
-		free(reserved_table_array[i].value);
-	}
-}*/
-
 
 void read_config_file(char *path_to_config) {
 	FILE *config_file_pointer;
@@ -71,8 +47,8 @@ void read_config_file(char *path_to_config) {
 	fscanf(config_file_pointer, "%s", token);
 	if(strcmp("#reserved#", token)==0) {
 		c = fgetc(config_file_pointer);
-		while(strcmp("#non-reserved#", token)!=0) {
-			fscanf(config_file_pointer, "%s", reserved_table_array[reserved_count].reserved_name);
+		fscanf(config_file_pointer, "%s", reserved_table_array[reserved_count].reserved_name);
+		while(strcmp("#non-reserved#", reserved_table_array[reserved_count].reserved_name)!=0) {
 			printf("reserved_name: %s\n", reserved_table_array[reserved_count].reserved_name);
 			while(c==' ') {
 				c = fgetc(config_file_pointer);
@@ -88,16 +64,20 @@ void read_config_file(char *path_to_config) {
 				c = fgetc(config_file_pointer);
 			}
 			reserved_count += 1;
+			fscanf(config_file_pointer, "%s", reserved_table_array[reserved_count].reserved_name);
 			
 		}
 	}
+	else {
+		fprintf(stderr, "Error in conf file, missing \"#reserved#\"\n");
+		exit(1);
+	}
 
-	//free_space();
+	/**************************************************************************/
+
 	if(fclose(config_file_pointer)) {
 		fprintf(stderr, "Error closing configure file!\n");
 		exit(1);
 	}
-
-	
 }
 
